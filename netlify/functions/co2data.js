@@ -1,7 +1,10 @@
 // netlify/functions/co2data.js
 const axios = require('axios');
-const { getStore } = require('@netlify/blobs');
 
+const dotenv = require('dotenv')
+dotenv.config();
+
+const { getStore } = require('@netlify/blobs');
 const store = getStore({
 		name: 'co2proxy',
 		siteID: process.env.SITE_ID,
