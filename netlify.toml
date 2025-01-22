@@ -1,5 +1,7 @@
 [build]
   functions = "netlify/functions"
+  NODE_ENV = "production"
+  NETLIFY_BLOBS_CONTEXT = "production"
 
 [functions]
   directory = "netlify/functions"

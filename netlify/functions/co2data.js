@@ -2,12 +2,18 @@
 const axios = require('axios');
 const { getStore } = require('@netlify/blobs');
 
+const store = getStore({
+		name: 'co2proxy',
+		siteID: process.env.SITE_ID,
+		token: process.env.NETLIFY_ACCESS_TOKEN
+});
+
 // Cache duration in milliseconds (1 hour)
 const CACHE_DURATION = 60 * 60 * 1000;
 
 // Rate limiting implementation using Netlify's KV store
 async function checkRateLimit(ip) {
-  const store = getStore();
+  const store = getStore('co2proxy');
   const key = `ratelimit_${ip}`;
   const now = Date.now();
   const windowMs = 15 * 60 * 1000; // 15 minutes
@@ -33,7 +39,7 @@ async function checkRateLimit(ip) {
 }
 
 async function getCachedData() {
-  const store = getStore();
+  const store = getStore('co2proxy');
   const cacheKey = 'co2_cache';
   
   try {
@@ -52,7 +58,7 @@ async function getCachedData() {
 }
 
 async function setCachedData(data) {
-  const store = getStore();
+  const store = getStore('co2proxy');
   const cacheKey = 'co2_cache';
   
   try {
